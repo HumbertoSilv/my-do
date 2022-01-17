@@ -1,6 +1,10 @@
+import { Container } from "./style";
+
 const Dashboard = () => {
     return(
-        <div>Dashboard</div>
+        <Container>
+            
+        </Container>
     );
 };
 

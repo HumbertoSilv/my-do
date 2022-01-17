@@ -1,6 +1,15 @@
+import { Container, Content } from "./style";
+
 const Home = () => {
     return(
-        <div>home</div>
+        <Container>
+            <Content>
+            <h1>
+                MY<span>-</span>DO
+            </h1>
+            <span>Organize-se de forma fácil e efetiva.</span>
+            </Content>
+        </Container>
     );
 };
 
