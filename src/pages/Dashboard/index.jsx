@@ -8,27 +8,33 @@ import { toast } from "react-toastify";
 
 
 const Dashboard = () => {
-    const [pendingTasks, setPendingTasks] = useState([]);
-    const [finishedTasks, setFinishedTasks] = useState([]);
+    const [pendingTasks, setPendingTasks] = useState(JSON.parse(localStorage.getItem("@MyDo:pendingTasks")) || []);
+    const [finishedTasks, setFinishedTasks] = useState(JSON.parse(localStorage.getItem("@MyDo:finishedTasks")) || []);
 
     const {register, handleSubmit, reset} = useForm();
 
     const checkTask = (task) => {
         const index = pendingTasks.indexOf(task)
         const spliceTask = pendingTasks.splice( index, 1);
-        setFinishedTasks([
+        const arrayTasks = [
             ...finishedTasks,
             ...spliceTask
-        ]);
+        ];
+        localStorage.setItem("@MyDo:finishedTasks", JSON.stringify(arrayTasks));
+        localStorage.setItem("@MyDo:pendingTasks", JSON.stringify(pendingTasks));
+        setFinishedTasks(arrayTasks);
     };
 
     const undoTask = (task) => {
         const index = finishedTasks.indexOf(task)
         const spliceTask = finishedTasks.splice(index, 1);
-        setPendingTasks([
+        const arrayTasks = [
             ...pendingTasks,
             ...spliceTask
-        ]);
+        ];
+        localStorage.setItem("@MyDo:pendingTasks", JSON.stringify(arrayTasks));
+        localStorage.setItem("@MyDo:finishedTasks", JSON.stringify(finishedTasks));
+        setPendingTasks(arrayTasks);
     };
 
     const newTask = ({task}) => {
@@ -39,17 +45,21 @@ const Dashboard = () => {
                 });
             return
         };
-        setPendingTasks([
+
+        const arrayTasks = [
             ...pendingTasks,
             {id: pendingTasks.length, 
             description: task}
-        ]);
+        ];
+        localStorage.setItem("@MyDo:pendingTasks", JSON.stringify(arrayTasks));
+        setPendingTasks(arrayTasks);
         reset();
     };
 
     const deleteTask = (task) => {
         const index = finishedTasks.indexOf(task)
         finishedTasks.splice(index, 1);
+        localStorage.setItem("@MyDo:finishedTasks", JSON.stringify(finishedTasks));
         setFinishedTasks([...finishedTasks]);
         toast.success('Tarefa deletada.', {
             autoClose: 2000,
@@ -62,7 +72,7 @@ const Dashboard = () => {
         return value.toLocaleDateString();
     };
 
-    useEffect(() => {}, [finishedTasks])
+    useEffect(() => {}, [finishedTasks, pendingTasks])
 
 
     return(
