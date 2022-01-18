@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import Button from "../../components/Button";
 import Card from "../../components/Card";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+
 
 const Dashboard = () => {
     const [pendingTasks, setPendingTasks] = useState([]);
@@ -30,6 +32,13 @@ const Dashboard = () => {
     };
 
     const newTask = ({task}) => {
+        if(task.length < 1) {
+            toast.error('Ops! Tarefa vazia.', {
+                autoClose: 2000,
+                hideProgressBar: true,
+                });
+            return
+        };
         setPendingTasks([
             ...pendingTasks,
             {id: pendingTasks.length, 
@@ -42,6 +51,10 @@ const Dashboard = () => {
         const index = finishedTasks.indexOf(task)
         finishedTasks.splice(index, 1);
         setFinishedTasks([...finishedTasks]);
+        toast.success('Tarefa deletada.', {
+            autoClose: 2000,
+            hideProgressBar: true,
+            });
     };
 
     const date = () => {
@@ -67,13 +80,15 @@ const Dashboard = () => {
             </InputContainer>
             <hr/>
             <TaskContainer>
-                {pendingTasks.map((task, index) => (
+                <div>{pendingTasks.map((task, index) => (
                         <Card 
                             key={index} 
                             description={task.description}
                             title="Concluir"
                             onClick={() => checkTask(task)}/>)
                             )}
+                </div>
+                <div>
                 {finishedTasks.map((task, index) => (
                         <Card 
                             key={index} 
@@ -83,6 +98,7 @@ const Dashboard = () => {
                             del={() => deleteTask(task)}
                             onClick={() => undoTask(task)}/>)
                             )}
+                </div>
             </TaskContainer>
             
         </Container>

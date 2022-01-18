@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     display: flex;
-    // justify-content: center;
     padding: 0 38px;
     hr {
         height: 100vh;
@@ -10,7 +9,6 @@ export const Container = styled.div`
 `;
 
 export const InputContainer = styled.form`
-    // flex: 1;
     margin-top: 32px;
     padding: 0 38px;
 
@@ -36,10 +34,17 @@ export const TaskContainer = styled.div`
     margin-top: 32px;
     display: flex;
     flex-wrap: wrap;
+    overflow: auto;
+    flex-direction: column;
 
     div{
+        display: flex;
         margin-top: 16px;
         margin-right: 32px;
+    }
+
+    hr {
+        width: 100%;
     }
     
 `;
