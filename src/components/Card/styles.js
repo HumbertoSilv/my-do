@@ -1,25 +1,24 @@
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 
 export const Container = styled.div`
-    background-color: var(--white);
+    background-color: ${(props) => (props.check? css`var(--whiteGrey)`: css`var(--white)`)};
     border-radius: 8px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 200px;
-    height: 200px;
+    width: 230px;
+    height: 230px;
     padding: 16px;
-    border: 1px solid var(--black);
+    border: 2px solid var(--grey);
     color: var(--black);
 
-    hr {
-        width: 80%;
-        margin-top: 16px;
-        margin-bottom: 16px;
+    span {
+        height: 100%;
+        overflow: overlay;
     }
-    
+
     button{
-        margin-top: 80px;
+        margin-top: 10px;
         align-self: flex-end;
     }
 `;

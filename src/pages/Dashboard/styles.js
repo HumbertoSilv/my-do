@@ -2,27 +2,31 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    // justify-content: center;
     padding: 0 38px;
+    hr {
+        height: 100vh;
+    }
 `;
 
 export const InputContainer = styled.form`
-    flex: 1;
+    // flex: 1;
     margin-top: 32px;
     padding: 0 38px;
 
     section{
         display: flex;
+        flex-direction: column;
+        height: 200px;
         > div {
-            max-width: 80%;
+            width: 250px;
             flex: 1;
             margin-right: 16px;
         }
         button {
-            max-width: 260px;
-            height: 60px;
-            margin: 0;  
+            width: 240px;
+            height: 40px;
+            margin: 5px;  
         }
     }
 `;

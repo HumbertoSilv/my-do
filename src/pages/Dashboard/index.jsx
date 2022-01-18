@@ -3,13 +3,31 @@ import Input from "../../components/Input";
 import { useForm } from "react-hook-form";
 import Button from "../../components/Button";
 import Card from "../../components/Card";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Dashboard = () => {
     const [pendingTasks, setPendingTasks] = useState([]);
     const [finishedTasks, setFinishedTasks] = useState([]);
 
-    const {register, handleSubmit} = useForm();
+    const {register, handleSubmit, reset} = useForm();
+
+    const checkTask = (task) => {
+        const index = pendingTasks.indexOf(task)
+        const spliceTask = pendingTasks.splice( index, 1);
+        setFinishedTasks([
+            ...finishedTasks,
+            ...spliceTask
+        ]);
+    };
+
+    const undoTask = (task) => {
+        const index = finishedTasks.indexOf(task)
+        const spliceTask = finishedTasks.splice(index, 1);
+        setPendingTasks([
+            ...pendingTasks,
+            ...spliceTask
+        ]);
+    };
 
     const newTask = ({task}) => {
         setPendingTasks([
@@ -17,34 +35,54 @@ const Dashboard = () => {
             {id: pendingTasks.length, 
             description: task}
         ]);
-        console.log(pendingTasks);
-    }
+        reset();
+    };
+
+    const deleteTask = (task) => {
+        const index = finishedTasks.indexOf(task)
+        finishedTasks.splice(index, 1);
+        setFinishedTasks([...finishedTasks]);
+    };
+
+    const date = () => {
+        const value = new Date();
+        return value.toLocaleDateString();
+    };
+
+    useEffect(() => {}, [finishedTasks])
+
 
     return(
         <Container>
             <InputContainer onSubmit={handleSubmit(newTask)}>
-                <time>hoje</time>
+                <time>{date()}</time>
                 <section>
                     <Input 
-                        placehoder="Nova tarefa..."
+                        placeholder="Nova tarefa..."
                         name="task"
                         register={register} 
                     />
                     <Button type="submit" >Adicionar</Button>
                 </section>
             </InputContainer>
+            <hr/>
             <TaskContainer>
-                {pendingTasks.map((task) => (
+                {pendingTasks.map((task, index) => (
                         <Card 
-                            key={task.id} 
-                            description={task.description} 
-                            onClick={() => {}}/>))}
-                <div>finish</div>
-                {finishedTasks.map((task) => (
+                            key={index} 
+                            description={task.description}
+                            title="Concluir"
+                            onClick={() => checkTask(task)}/>)
+                            )}
+                {finishedTasks.map((task, index) => (
                         <Card 
-                            key={task.id} 
-                            description={task.description} 
-                            onClick={() => {}}/>))}
+                            key={index} 
+                            description={task.description}
+                            title="Desfazer"
+                            check
+                            del={() => deleteTask(task)}
+                            onClick={() => undoTask(task)}/>)
+                            )}
             </TaskContainer>
             
         </Container>

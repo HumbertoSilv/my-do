@@ -7,7 +7,7 @@ export const Container = styled.button`
     border-radius: 8px;
     border: 2px solid var(--black);
     font-family: "Roboto Mono", monospace;
-    margin: 20px auto;
+    margin: auto;
     width: 90%;
     transition: 0.2s;
 

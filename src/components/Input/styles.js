@@ -12,10 +12,11 @@ export const InputContainer = styled.div`
     color: var(--grey);
     padding: 1em;
     width: 100%;
+    height: 100%;
     display: flex;
     transition: 0.4s;
 
-    input {
+    textarea {
         background: transparent;
         align-items: center;
         flex: 1;

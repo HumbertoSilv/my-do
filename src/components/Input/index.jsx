@@ -4,7 +4,7 @@ const Input = ({register, name, ...rest}) => {
     return(
         <Container>
             <InputContainer >
-                <input {...register(name)} {...rest} />
+                <textarea  {...register(name)} {...rest} />
             </InputContainer>
         </Container>
     );

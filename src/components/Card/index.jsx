@@ -1,12 +1,12 @@
 import Button from "../Button";
 import { Container } from "./styles";
 
-const Card = ({description, onClick}) => {
+const Card = ({description, check, onClick, title, del, id}) => {
     return(
-        <Container>
+        <Container check={check}>
             <span>{description}</span>
-            <hr/>
-            <Button onClick={onClick} >Concluir</Button>
+            <Button onClick={onClick} >{title}</Button>
+            {del && <Button onClick={del} >Deletar</Button> }
         </Container>
     );
 };
