@@ -13,27 +13,31 @@ const Dashboard = () => {
 
     const {register, handleSubmit, reset} = useForm();
 
+    const setItem = (key, value) => {
+        localStorage.setItem(key, JSON.stringify(value));
+    };
+
     const checkTask = (task) => {
-        const index = pendingTasks.indexOf(task)
+        const index = pendingTasks.indexOf(task);
         const spliceTask = pendingTasks.splice( index, 1);
         const arrayTasks = [
             ...finishedTasks,
             ...spliceTask
         ];
-        localStorage.setItem("@MyDo:finishedTasks", JSON.stringify(arrayTasks));
-        localStorage.setItem("@MyDo:pendingTasks", JSON.stringify(pendingTasks));
+        setItem("@MyDo:finishedTasks", arrayTasks);
+        setItem("@MyDo:pendingTasks", pendingTasks);
         setFinishedTasks(arrayTasks);
     };
 
     const undoTask = (task) => {
-        const index = finishedTasks.indexOf(task)
+        const index = finishedTasks.indexOf(task);
         const spliceTask = finishedTasks.splice(index, 1);
         const arrayTasks = [
             ...pendingTasks,
             ...spliceTask
         ];
-        localStorage.setItem("@MyDo:pendingTasks", JSON.stringify(arrayTasks));
-        localStorage.setItem("@MyDo:finishedTasks", JSON.stringify(finishedTasks));
+        setItem("@MyDo:pendingTasks", arrayTasks);
+        setItem("@MyDo:finishedTasks", finishedTasks);
         setPendingTasks(arrayTasks);
     };
 

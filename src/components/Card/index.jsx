@@ -1,7 +1,7 @@
 import Button from "../Button";
 import { Container } from "./styles";
 
-const Card = ({description, check, onClick, title, del, id}) => {
+const Card = ({description, check, onClick, title, del}) => {
     return(
         <Container check={check}>
             <span>{description}</span>
